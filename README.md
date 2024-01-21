@@ -108,6 +108,10 @@ Below are the descriptions and expected outcomes for various test cases:
    - Input: `[0, 0, 0, 1, 2, 3]`
    - Expected Output: `[[0, 0, 0]]`
 
+9. **Edge Case**: 
+   - Input: `[1, 2, -2, -1]`
+   - Expected Output: `[]`
+
 Each test case is executed using the `printTriplets` method, which outputs the resulting list of triplets.
 
 ## Usage
