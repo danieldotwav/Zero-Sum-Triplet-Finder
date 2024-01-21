@@ -110,7 +110,7 @@ public class Main {
             System.out.println(outputString);
         }
         else {
-            System.out.println(" []");
+            System.out.println("[]");
         }
     }
 }
