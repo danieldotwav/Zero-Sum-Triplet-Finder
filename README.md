@@ -35,16 +35,11 @@ static List<List<Integer>> threeSum(int[] nums) {
     for (int i = 0; i < arrSize; ++i) {
         x = nums[i];
         int rightPtr = arrSize - 1;
-        
+
         // Skip duplicate 'x' values
         if (!(i > 0 && nums[i] == nums[i - 1])) {
             for (int leftPtr = i + 1; leftPtr < rightPtr; ) {
                 int sum = x + nums[leftPtr] + nums[rightPtr];
-
-                // Adjust the rightPtr while the sum is greater than the target
-                while (sum > target && (rightPtr > leftPtr)) {
-                    sum = x + nums[leftPtr] + nums[--rightPtr];
-                }
 
                 // Process the valid triplet
                 if (sum == 0) {
@@ -61,14 +56,8 @@ static List<List<Integer>> threeSum(int[] nums) {
                         leftPtr++;
                     }
 
-                    // Skip duplicate elements to the left of rightPtr
-                    while (leftPtr < rightPtr && nums[rightPtr] == nums[rightPtr - 1]) {
-                        rightPtr--;
-                    }
-
-                    // Move to the next unique elements for leftPtr and rightPtr
+                    // Move to the next unique element for leftPtr
                     leftPtr++;
-                    rightPtr--;
                 } 
                 else if (sum < target) {
                     leftPtr++; // Move leftPtr to the right to increase sum
