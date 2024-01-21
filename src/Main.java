@@ -30,12 +30,16 @@ public class Main {
         printTriplets(threeSum(new int[]{1, 2, 3, 4, 5}));
 
         // Case 7: Large Array with Random Values
-        // Expected: Varies, but may include [-4, -1, 5], [-3, -2, 5], etc.
+        // Expected: [ [ -6, 1, 5 ] [ -4, -1, 5 ] [ -4, 1, 3 ] [ -3, -2, 5 ] [ -3, 0, 3 ] [ -3, 1, 2 ] [ -2, -1, 3 ] [ -2, 0, 2 ] [ -2, 1, 1 ] [ -1, 0, 1 ] ]
         printTriplets(threeSum(new int[]{-2, -1, 0, 1, 1, 2, 3, -3, -4, 5, -6}));
 
         // Case 8: Array with Zeroes and Positive Numbers
         // Expected: [[0, 0, 0]]
         printTriplets(threeSum(new int[]{0, 0, 0, 1, 2, 3}));
+
+        // Case 9: Edge Case
+        // Expected: []
+        printTriplets(threeSum(new int[]{1, 2, -2, -1}));
     }
 
     static List<List<Integer>> threeSum(int[] nums) {
@@ -43,48 +47,37 @@ public class Main {
         List<List<Integer>> listOfExistingTriplets = new ArrayList<>();
         // Keep temporary lists in a hash set for efficient searching
         HashSet<String> currentTriplet = new HashSet<>();
-    
+
         // Sort the array in ascending order
         Arrays.sort(nums);
         int arrSize = nums.length, target = 0, x;
-    
+
         for (int i = 0; i < arrSize; ++i) {
             x = nums[i];
             int rightPtr = arrSize - 1;
-            
+
             // Skip duplicate 'x' values
             if (!(i > 0 && nums[i] == nums[i - 1])) {
                 for (int leftPtr = i + 1; leftPtr < rightPtr; ) {
                     int sum = x + nums[leftPtr] + nums[rightPtr];
-    
-                    // Adjust the rightPtr while the sum is greater than the target
-                    while (sum > target && (rightPtr > leftPtr)) {
-                        sum = x + nums[leftPtr] + nums[--rightPtr];
-                    }
-    
+
                     // Process the valid triplet
                     if (sum == 0) {
                         // Check for duplicates
                         String tempKey = x + ", " + nums[leftPtr] + ", " + nums[rightPtr];
-    
+
                         if (!currentTriplet.contains(tempKey)) {
                             currentTriplet.add(tempKey);
                             listOfExistingTriplets.add(new ArrayList<>(Arrays.asList(x, nums[leftPtr], nums[rightPtr])));
                         }
-    
+
                         // Skip duplicate elements to the right of leftPtr
                         while (leftPtr < rightPtr && nums[leftPtr] == nums[leftPtr + 1]) {
                             leftPtr++;
                         }
 
-                        // Skip duplicate elements to the left of rightPtr
-                        while (leftPtr < rightPtr && nums[rightPtr] == nums[rightPtr - 1]) {
-                            rightPtr--;
-                        }
-
-                        // Move to the next unique elements for leftPtr and rightPtr
+                        // Move to the next unique element for leftPtr
                         leftPtr++;
-                        rightPtr--;
                     } 
                     else if (sum < target) {
                         leftPtr++; // Move leftPtr to the right to increase sum
@@ -115,6 +108,9 @@ public class Main {
             }
             outputString.append("]");
             System.out.println(outputString);
+        }
+        else {
+            System.out.println(" []");
         }
     }
 }
